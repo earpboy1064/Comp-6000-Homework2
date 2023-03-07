@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
-   Home Work 2
-   Comp 6000 
+  HomeWork 2
 
    Author: Wyatt LeMaster
    Date: 3/6/2023
@@ -10,6 +9,7 @@
    Supporting Files:  orders.xsd 
 -->
 <customers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///C:/Users/wyatt/Box/Spring%202023/Web%20app/XML_Assignment2_Files/orders.xsd">
+
 	<customer custID="cust201">
 		<name title="Mr.">John Michael</name>
 		<address><![CDATA[
