@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   New Perspectives on XML
+   Tutorial 3
+   Case Problem 4
+
+   Map Finds For You schema
+   Author: Wyatt LeMaster
+   Date: 3/6/2023
+
+   Filename:         orders.xsd
+   Supporting Files: orders.xml
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault = "unqualified">
+  <!-- ELEMENTS -->
+  
+  
+  <xs:element name="customers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="customer" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+ <xs:element name="customer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref = "name" />
+				<xs:element ref = "address"/>
+				<xs:element ref = "phone" />
+				<xs:element ref = "email"  minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="orders" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+				
+				<xs:attribute ref = "custID" />
+
+		</xs:complexType>
+	</xs:element>
+	  
+  
+  
+    <xs:element name="name">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute ref="title"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+  
+    <xs:element name="address" type="xs:string" />
+	<xs:element name="email" type="xs:string" />
+	<xs:element name="phone" type="xs:string" /> <!-- maybe need data type --> 
+
+
+  <xs:element name="itemPrice">
+      <xs:complexType> 
+		  <xs:simpleContent>
+			  <xs:extension base="xs:decimal" >
+			  	<xs:attribute ref="saleItem"> </xs:attribute> 
+			  </xs:extension>           
+		  </xs:simpleContent>
+      </xs:complexType>  
+  </xs:element>
+  
+  <xs:element name="itemQty" type="xs:decimal">
+     
+  </xs:element>
+
+ <xs:element name="item">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="itemPrice" />
+			<xs:element ref="itemQty" />
+		</xs:sequence>
+			<xs:attribute ref="itemNumber" />
+	</xs:complexType>
+  </xs:element>
+	
+	
+	
+	<xs:element name="items">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="item" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	
+  <xs:element name="orderDate" type="xs:date" />
+
+
+
+  <xs:element name="order">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="orderDate" />
+				<xs:element ref="items" />
+			</xs:sequence>
+			<xs:attribute ref="orderID" />
+			<xs:attribute ref="orderBy" />
+
+		</xs:complexType>
+	</xs:element>
+	
+	
+  <xs:element name="orders">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="order" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	  <!-- ATTRIBUTES -->
+  <xs:attribute name="saleItem" type="saleItemType"></xs:attribute>
+  <xs:attribute name="itemQty" type="xs:decimal"></xs:attribute>
+  <xs:attribute name="orderID" type="orderIDType" />
+  <xs:attribute name="orderBy" type="orderByType" />	
+  <xs:attribute name="itemNumber" type="xs:string"></xs:attribute>
+  <xs:attribute name="title" type="xs:string"></xs:attribute>
+  <xs:attribute name="custID" type="orderByType" />
+
+
+
+
+  <!-- CUSTOM DATATYPES -->
+  
+  
+  <xs:simpleType name="saleItemType">
+     <xs:restriction base="xs:string">
+		<xs:pattern value = "N|Y"></xs:pattern>
+     </xs:restriction>  
+  </xs:simpleType>
+  
+  <xs:simpleType name="orderIDType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="or\d{4}" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+
+	
+	 <xs:simpleType name="orderByType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="cust\d{3}" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="title">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="Mx.|Mrs.|Miss|Ms.|Mr.|Sir.|Dame|Dr.|Lady.|Lord" />
+		</xs:restriction>
+	</xs:simpleType>
+  
+  
+
+ </xs:schema>
+
